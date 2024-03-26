@@ -122,7 +122,7 @@ export async function submitToSplashThat(payload) {
   const eventId = getEventId();
 
   if (!eventId) return false;
-  const resp = await fetch(`https://cchome-stage.adobe.io/lod/v1/events/st-${eventId}/attendees`, requestOptions).then((response) => response);
+  const resp = await fetch(`https://cchome-stage.adobe.io/lod/v1/events/${eventId}/attendees`, requestOptions).then((response) => response);
 
   console.log('Submitted registration to SplashThat:', payload);
   resp.json().then((json) => {
