@@ -145,9 +145,9 @@ async function handleRegisterCta(pd) {
     if (attendeeData?.registered) {
       rsvpLink.classList.add('done');
     } else {
-      rsvpLink.textContent = currText;
       rsvpLink.classList.remove('no-event');
     }
+    rsvpLink.textContent = currText;
   };
 
   rsvpLink.classList.add('no-event');
