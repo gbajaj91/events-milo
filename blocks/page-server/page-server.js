@@ -141,16 +141,18 @@ async function handleRegisterCta(pd) {
   const rsvpLink = document.querySelector('a[href$="#rsvp-form"]');
   if (!rsvpLink) return;
 
-  const renderCtaState = (attendeeData) => {
+  const renderCtaState = (attendeeData, currText) => {
     if (attendeeData?.registered) {
       rsvpLink.classList.add('done');
     } else {
+      rsvpLink.textContent = currText;
       rsvpLink.classList.remove('no-event');
     }
   };
 
   rsvpLink.classList.add('no-event');
   const currentCtaText = rsvpLink.textContent;
+  rsvpLink.textContent = 'Checking your RSVP status...';
   const imsProfile = window.bm8tr.get('imsProfile');
   if (imsProfile && !imsProfile.noProfile) {
     const attendeeData = await getAttendeeData(imsProfile.email, pd.arbitrary.promoId);
@@ -161,6 +163,7 @@ async function handleRegisterCta(pd) {
   } else {
     window.bm8tr.subscribe('imsProfile', async ({ newValue }) => {
       if (newValue.noProfile) {
+        rsvpLink.textContent = currentCtaText;
         rsvpLink.classList.remove('no-event');
       } else {
         const attendeeData = await getAttendeeData(newValue.email, pd['arbitrary.promoId']);
