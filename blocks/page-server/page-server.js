@@ -141,11 +141,10 @@ async function handleRegisterCta(pd) {
   const rsvpLink = document.querySelector('a[href$="#rsvp-form"]');
   if (!rsvpLink) return;
 
-  const renderCtaState = (attendeeData, fbText) => {
+  const renderCtaState = (attendeeData) => {
     if (attendeeData?.registered) {
-      rsvpLink.textContent = 'You are all set!';
+      rsvpLink.classList.add('done');
     } else {
-      rsvpLink.textContent = fbText;
       rsvpLink.classList.remove('no-event');
     }
   };
@@ -163,7 +162,6 @@ async function handleRegisterCta(pd) {
   } else {
     window.bm8tr.subscribe('imsProfile', async ({ newValue }) => {
       if (newValue.noProfile) {
-        rsvpLink.textContent = currentCtaText;
         rsvpLink.classList.remove('no-event');
       } else {
         const attendeeData = await getAttendeeData(newValue.email, pd['arbitrary.promoId']);
