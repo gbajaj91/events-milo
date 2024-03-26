@@ -7,10 +7,13 @@
  *
  */
 
+ main a.con-button {
+  transition: opacity 0.2s;
+ }
+
  main a.con-button.no-event {
   user-select: none;
   pointer-events: none;
-  transition: opacity 0.2s;
   opacity: 0.5;
  }
 
