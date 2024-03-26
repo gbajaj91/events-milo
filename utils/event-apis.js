@@ -4,7 +4,7 @@ const API_QUERY_PARAM = 'featuredCards';
 const pageDataCache = {};
 
 export function getEventId() {
-  return window.bm8tr.get('eventData')?.arbitrary?.[0]?.value?.split('|')?.[1];
+  return window.bm8tr.get('eventData')?.arbitrary?.[0]?.value;
 }
 
 export function flattenObject(obj, parentKey = '', result = {}) {
@@ -96,7 +96,7 @@ export async function getAttendeeData(email, eventId) {
     redirect: 'follow',
   };
 
-  const data = await fetch(`https://cchome-stage.adobe.io/lod/v1/events/st-${eventId}/attendees/${email}`, requestOptions)
+  const data = await fetch(`https://cchome-stage.adobe.io/lod/v1/events/${eventId}/attendees/${email}`, requestOptions)
     .then((response) => response.json())
     .then((result) => result)
     .catch((error) => console.error(error));
@@ -119,12 +119,10 @@ export async function submitToSplashThat(payload) {
     redirect: 'follow',
   };
 
-  // const eventId = getEventId();
+  const eventId = getEventId();
 
-  // if (!eventId) return false;
-  // TODO: use real event ID when ready
-  const resp = await fetch('https://cchome-stage.adobe.io/lod/v1/events/st-458926431/attendees', requestOptions).then((response) => response);
-  // const resp = await fetch(`https://cchome-stage.adobe.io/lod/v1/events/st-${eventId}/attendees`, requestOptions).then((response) => response);
+  if (!eventId) return false;
+  const resp = await fetch(`https://cchome-stage.adobe.io/lod/v1/events/st-${eventId}/attendees`, requestOptions).then((response) => response);
 
   console.log('Submitted registration to SplashThat:', payload);
   resp.json().then((json) => {
@@ -144,6 +142,7 @@ export async function captureProfile() {
     if (window.adobeIMS) {
       window.bm8tr.set('imsProfile', { noProfile: true });
     }
+
   }
 }
 
