@@ -44,6 +44,8 @@ export default async function init(el) {
       zoom: configs.zoom,
     });
 
+    map.addControl(new mapboxgl.NavigationControl());
+
     const marker1 = new mapboxgl.Marker()
       .setLngLat(configs.coordinates)
       .addTo(map);
