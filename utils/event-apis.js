@@ -142,7 +142,6 @@ export async function captureProfile() {
     if (window.adobeIMS) {
       window.bm8tr.set('imsProfile', { noProfile: true });
     }
-
   }
 }
 
