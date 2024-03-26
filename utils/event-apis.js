@@ -136,6 +136,17 @@ export async function submitToSplashThat(payload) {
   return payload;
 }
 
+export async function captureProfile() {
+  try {
+    const profile = await getProfile();
+    window.bm8tr.set('imsProfile', profile);
+  } catch {
+    if (window.adobeIMS) {
+      window.bm8tr.set('imsProfile', { noProfile: true });
+    }
+  }
+}
+
 function lazyCaptureProfile() {
   let attempCounter = 0;
   const profileRetryer = setInterval(async () => {

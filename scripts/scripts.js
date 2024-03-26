@@ -10,7 +10,7 @@
  * governing permissions and limitations under the License.
  */
 
-import { getProfile } from '../utils/event-apis.js';
+import { captureProfile } from '../utils/event-apis.js';
 import { setLibs, decorateArea } from './utils.js';
 
 // Add project-wide style path here.
@@ -65,6 +65,6 @@ window.bm8tr = await import('../deps/block-mediator.min.js').then((mod) => mod.d
   const config = setConfig({ ...CONFIG, miloLibs });
   console.log(config);
   await loadArea().then(() => {
-    getProfile();
+    captureProfile();
   });
 }());
