@@ -151,7 +151,6 @@ async function handleRegisterCta(pd) {
 
   rsvpLink.classList.add('no-event');
   const currentCtaText = rsvpLink.textContent;
-  rsvpLink.textContent = 'Checking your RSVP status...';
   const imsProfile = window.bm8tr.get('imsProfile');
   if (imsProfile && !imsProfile.noProfile) {
     const attendeeData = await getAttendeeData(imsProfile.email, pd.arbitrary.promoId);
