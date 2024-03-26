@@ -10,6 +10,7 @@
  * governing permissions and limitations under the License.
  */
 
+import { getProfile } from '../utils/event-apis.js';
 import { setLibs, decorateArea } from './utils.js';
 
 // Add project-wide style path here.
@@ -60,9 +61,10 @@ window.bm8tr = await import('../deps/block-mediator.min.js').then((mod) => mod.d
 }());
 
 (async function loadPage() {
-  const { loadArea, setConfig, loadDelayed } = await import(`${miloLibs}/utils/utils.js`);
+  const { loadArea, setConfig } = await import(`${miloLibs}/utils/utils.js`);
   const config = setConfig({ ...CONFIG, miloLibs });
   console.log(config);
-  await loadArea();
-  loadDelayed();
+  await loadArea().then(() => {
+    getProfile();
+  });
 }());

@@ -97,6 +97,18 @@ function autoUpdateMetadata(res) {
   }
 }
 
+function loadTemplateStylings() {
+  const adjustMarqueeStylings = () => {
+    const marquee = document.querySelector('.marquee');
+    if (!marquee) return;
+
+    const marqueeForeground = marquee.querySelector(':scope > div:last-of-type');
+    marqueeForeground.style.textShadow = '1px 1px 2px black';
+  };
+
+  adjustMarqueeStylings();
+}
+
 // data -> dom gills
 export async function autoUpdateContent(parent, data, isStructured = false) {
   if (!parent) {
@@ -133,11 +145,14 @@ export async function autoUpdateContent(parent, data, isStructured = false) {
 
   // TODO: handle Metadata
   autoUpdateMetadata(res);
+
+  // adjust Milo blocks styling for events
+  loadTemplateStylings(res.template = 'default-t3');
   return res;
 }
 
 export default async function init(el) {
   const { default: getUuid } = await import(`${getLibs()}/utils/getUuid.js`);
   const hash = await getUuid(window.location.pathname);
-  await autoUpdateContent(el.closest('main'), await fetchPageData(hash, true), true);
+  await autoUpdateContent(el.closest('main'), await fetchPageData(hash), true);
 }
