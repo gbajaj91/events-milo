@@ -142,13 +142,13 @@ async function handleRegisterCta(pd) {
   if (!rsvpLink) return;
 
   const renderCtaState = (attendeeData, currText) => {
+    rsvpLink.textContent = currText;
     if (attendeeData?.registered) {
       rsvpLink.classList.add('done');
       rsvpLink.prepend(getIcon('checkmark-circle-white'));
     } else {
       rsvpLink.classList.remove('no-event');
     }
-    rsvpLink.textContent = currText;
   };
 
   rsvpLink.classList.add('no-event');
