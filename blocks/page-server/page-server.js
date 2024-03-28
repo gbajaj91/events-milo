@@ -1,4 +1,4 @@
-import { getMetadata } from '../../utils/utils.js';
+import { getMetadata, getIcon } from '../../utils/utils.js';
 import fetchPageData, { flattenObject, getAttendeeData } from '../../utils/event-apis.js';
 import { getLibs } from '../../scripts/utils.js';
 
@@ -144,6 +144,7 @@ async function handleRegisterCta(pd) {
   const renderCtaState = (attendeeData, currText) => {
     if (attendeeData?.registered) {
       rsvpLink.classList.add('done');
+      rsvpLink.prepend(getIcon('checkmark-circle-white'));
     } else {
       rsvpLink.classList.remove('no-event');
     }

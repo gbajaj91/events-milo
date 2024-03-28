@@ -9,3 +9,12 @@ export function yieldToMain() {
     setTimeout(r, 0);
   });
 }
+
+export function getIcon(tag) {
+  const img = document.createElement('img');
+  img.className = `icon icon-${tag}`;
+  img.src = `/icons/${tag}.svg`;
+  img.alt = tag;
+
+  return img;
+}

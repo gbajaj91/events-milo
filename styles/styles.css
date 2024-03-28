@@ -7,28 +7,15 @@
  *
  */
 
- main a.con-button {
+main a.con-button {
   transition: opacity 0.2s;
- }
-
- main a.con-button.no-event {
-  user-select: none;
-  pointer-events: none;
-  opacity: 0.5;
- }
-
- main a.con-button.no-event.done {
   display: flex;
   align-items: center;
   gap: 4px;
- }
+}
 
- main a.con-button.no-event.done::before {
-  border-radius: 24px;
-  padding: 0 7px;
-  display: inline-block;
-  content: '✔';
-  font-size: 8px;
-  color: var(--color-accent);
-  background: var(--color-white);
+main a.con-button.no-event {
+  user-select: none;
+  pointer-events: none;
+  opacity: 0.5;
 }
