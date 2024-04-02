@@ -49,18 +49,20 @@ const miloLibs = setLibs(LIBS);
 
 window.bm8tr = await import('../deps/block-mediator.min.js').then((mod) => mod.default);
 
-async function loadDelayed() {
-  const { loadScript, loadStyle } = await import(`${getLibs()}/utils/utils.js`);
-  const delayedScripts = window.bm8tr.get('delayedScripts');
-  const delayedStyles = window.bm8tr.get('delayedStyles');
+function loadDelayed(DELAY = 3000) {
+  setTimeout(async () => {
+    const { loadScript, loadStyle } = await import(`${getLibs()}/utils/utils.js`);
+    const delayedScripts = window.bm8tr.get('delayedScripts');
+    const delayedStyles = window.bm8tr.get('delayedStyles');
 
-  delayedScripts.forEach((script) => {
-    loadScript(script.url).then(script.callback);
-  });
+    delayedScripts.forEach((script) => {
+      loadScript(script.url).then(script.callback);
+    });
 
-  delayedStyles.forEach((style) => {
-    loadStyle(style);
-  });
+    delayedStyles.forEach((style) => {
+      loadStyle(style);
+    });
+  }, DELAY);
 }
 
 (function loadStyles() {
