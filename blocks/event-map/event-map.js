@@ -34,22 +34,22 @@ export default async function init(el) {
   if (!configs) return;
 
   decorateMapContainer(configs);
-  loadStyle('https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.css');
-  loadScript('https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.js').then(() => {
-    window.mapboxgl.accessToken = window.atob(MAPBOX_API_TOKEN);
-    const map = new mapboxgl.Map({
-      container: 'mapbox-container',
-      style: configs.mapStyle,
-      center: configs.coordinates,
-      zoom: configs.zoom,
-    });
+  // loadStyle('https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.css');
+  // loadScript('https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.js').then(() => {
+  //   window.mapboxgl.accessToken = window.atob(MAPBOX_API_TOKEN);
+  //   const map = new mapboxgl.Map({
+  //     container: 'mapbox-container',
+  //     style: configs.mapStyle,
+  //     center: configs.coordinates,
+  //     zoom: configs.zoom,
+  //   });
 
-    map.addControl(new mapboxgl.NavigationControl());
+  //   map.addControl(new mapboxgl.NavigationControl());
 
-    const marker1 = new mapboxgl.Marker()
-      .setLngLat(configs.coordinates)
-      .addTo(map);
+  //   const marker1 = new mapboxgl.Marker()
+  //     .setLngLat(configs.coordinates)
+  //     .addTo(map);
 
-    console.log(marker1);
-  });
+  //   console.log(marker1);
+  // });
 }
