@@ -11,7 +11,7 @@
  */
 
 import { captureProfile } from '../utils/event-apis.js';
-import { setLibs, decorateArea } from './utils.js';
+import { setLibs, getLibs, decorateArea } from './utils.js';
 
 // Add project-wide style path here.
 const STYLES = '';
@@ -49,6 +49,20 @@ const miloLibs = setLibs(LIBS);
 
 window.bm8tr = await import('../deps/block-mediator.min.js').then((mod) => mod.default);
 
+async function loadDelayed() {
+  const { loadScript, loadStyle } = await import(`${getLibs()}/utils/utils.js`);
+  const delayedScripts = window.bm8tr.get('delayedScripts');
+  const delayedStyles = window.bm8tr.get('delayedStyles');
+
+  delayedScripts.forEach((script) => {
+    loadScript(script.url).then(script.callback);
+  });
+
+  delayedStyles.forEach((style) => {
+    loadStyle(style);
+  });
+}
+
 (function loadStyles() {
   const paths = [`${miloLibs}/styles/styles.css`];
   if (STYLES) { paths.push(STYLES); }
@@ -66,5 +80,6 @@ window.bm8tr = await import('../deps/block-mediator.min.js').then((mod) => mod.d
   console.log(config);
   await loadArea().then(() => {
     captureProfile();
+    loadDelayed();
   });
 }());

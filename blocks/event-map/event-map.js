@@ -1,9 +1,4 @@
 /* global mapboxgl */
-
-import { getLibs } from '../../scripts/utils.js';
-
-const { loadScript, loadStyle } = await import(`${getLibs()}/utils/utils.js`);
-
 const MAPBOX_API_TOKEN = 'cGsuZXlKMUlqb2ljV2w1ZFc1a1lXa2lMQ0poSWpvaVkydHJOSEp3ZVdsMk1XczRaVEp2YjNSck5IcDBiVFl5WVNKOS5QZ25PR0NWcVluU3VnUlBYb2ZKYWtR';
 
 function loadMapboxConfigs(el) {
@@ -34,22 +29,30 @@ export default async function init(el) {
   if (!configs) return;
 
   decorateMapContainer(configs);
-  // loadStyle('https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.css');
-  // loadScript('https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.js').then(() => {
-  //   window.mapboxgl.accessToken = window.atob(MAPBOX_API_TOKEN);
-  //   const map = new mapboxgl.Map({
-  //     container: 'mapbox-container',
-  //     style: configs.mapStyle,
-  //     center: configs.coordinates,
-  //     zoom: configs.zoom,
-  //   });
+  window.bm8tr.set('delayedScripts', [
+    {
+      url: 'https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.js',
+      callback: () => {
+        window.mapboxgl.accessToken = window.atob(MAPBOX_API_TOKEN);
+        const map = new mapboxgl.Map({
+          container: 'mapbox-container',
+          style: configs.mapStyle,
+          center: configs.coordinates,
+          zoom: configs.zoom,
+        });
 
-  //   map.addControl(new mapboxgl.NavigationControl());
+        map.addControl(new mapboxgl.NavigationControl());
 
-  //   const marker1 = new mapboxgl.Marker()
-  //     .setLngLat(configs.coordinates)
-  //     .addTo(map);
+        const marker1 = new mapboxgl.Marker()
+          .setLngLat(configs.coordinates)
+          .addTo(map);
 
-  //   console.log(marker1);
-  // });
+        console.log(marker1);
+      },
+    },
+  ]);
+
+  window.bm8tr.set('delayedStyles', [
+    'https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.css',
+  ]);
 }
