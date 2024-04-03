@@ -68,20 +68,15 @@ function updateImgTag(child, matchCallback, parentElement) {
         window.lana?.log(`failed to convert optimized img from ${el} with dynamic data: ${e}`);
       }
     });
-
-    parentElement.classList.remove('invisible');
   } else if (originalAlt.match(PLACEHOLDER_REG)) {
     parentElement.remove();
   }
 }
 
-function updateTextNode(child, matchCallback, element) {
+function updateTextNode(child, matchCallback) {
   const originalText = child.nodeValue;
   const replacedText = originalText.replace(PLACEHOLDER_REG, matchCallback);
-  if (replacedText !== originalText) {
-    child.nodeValue = replacedText;
-    element.classList.remove('invisible');
-  }
+  if (replacedText !== originalText) child.nodeValue = replacedText;
 }
 
 function autoUpdateMetadata(res) {
@@ -127,7 +122,7 @@ export async function autoUpdateContent(parent, data, isStructured = false) {
         }
 
         if (child.nodeType === 3) {
-          updateTextNode(child, findRegexMatch, element);
+          updateTextNode(child, findRegexMatch);
         }
       });
     }
@@ -183,8 +178,5 @@ export default async function init(el) {
   const { default: getUuid } = await import(`${getLibs()}/utils/getUuid.js`);
   const hash = await getUuid(window.location.pathname);
   const flatPD = await autoUpdateContent(el.closest('main'), await fetchPageData(hash), true);
-  // window.bm8tr.get('nodesToUnhide').forEach((n) => {
-  //   n.classList.remove('invisibile');
-  // });
   handleRegisterCta(flatPD);
 }

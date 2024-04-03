@@ -41,7 +41,6 @@ export function decorateArea(area = document) {
   const eagerLoad = (parent, selector) => {
     const img = parent.querySelector(selector);
     img?.removeAttribute('loading');
-    img?.setAttribute('fetchpriority', 'high');
   };
 
   (async function loadLCPImage() {
@@ -56,19 +55,6 @@ export function decorateArea(area = document) {
     // Last image of last column of last row
     eagerLoad(marquee, 'div:last-child > div:last-child img');
   }());
-
-  const allElements = area.querySelector('body')?.querySelectorAll('*');
-  allElements.forEach((element) => {
-    if (element.childNodes.length) {
-      element.childNodes.forEach((child) => {
-        if ((child.tagName === 'IMG' && child.nodeType === 1) || child.nodeType === 3) {
-          if (/\[\[(.*?)\]\]/g.test(child.nodeValue || child.alt)) {
-            element.classList.add('invisible');
-          }
-        }
-      });
-    }
-  });
 }
 
 export async function importMiloUtils() {

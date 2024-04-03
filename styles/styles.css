@@ -19,7 +19,3 @@ main a.con-button.no-event {
   pointer-events: none;
   opacity: 0.5;
 }
-
-.invisible {
-  visibility: hidden;
-}

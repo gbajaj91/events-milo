@@ -45,9 +45,9 @@ decorateArea();
  * ------------------------------------------------------------
  */
 
-window.bm8tr = await import('../deps/block-mediator.min.js').then((mod) => mod.default);
-
 const miloLibs = setLibs(LIBS);
+
+window.bm8tr = await import('../deps/block-mediator.min.js').then((mod) => mod.default);
 
 function loadDelayed(DELAY = 3000) {
   setTimeout(async () => {
