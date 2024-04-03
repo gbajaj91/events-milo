@@ -24,7 +24,7 @@ const CONFIG = {
   // codeRoot: '',
   // contentRoot: '',
   // TODO: we need client ID for Events Milo
-  imsClientId: 'adobedotcomdx',
+  imsClientId: 'events-milo',
   // imsScope: 'AdobeID,openid,gnav',
   // geoRouting: 'off',
   // fallbackRouting: 'off',
