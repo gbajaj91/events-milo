@@ -7,6 +7,10 @@
  *
  */
 
+:root {
+  --color-red: #EB1000;
+}
+
 main a.con-button.no-event {
   user-select: none;
   pointer-events: none;
