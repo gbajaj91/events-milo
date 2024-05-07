@@ -3,7 +3,13 @@ import { getIcon, handlize, generateToolTip } from '../../utils/utils.js';
 
 const { createTag } = await import(`${getLibs()}/utils/utils.js`);
 
-function decorateField(row, type = 'text') {
+async function decorateField(row, type = 'text') {
+  const miloLibs = getLibs();
+  await Promise.all([
+    import(`${miloLibs}/deps/lit-all.min.js`),
+    import(`${miloLibs}/features/spectrum-web-components/dist/textfield.js`),
+  ]);
+
   row.classList.add('text-field-row');
   const cols = row.querySelectorAll(':scope > div');
   if (!cols.length) return;
@@ -15,11 +21,15 @@ function decorateField(row, type = 'text') {
   const handle = handlize(text);
   let input;
   if (type === 'text') {
-    input = createTag('input', { id: `info-field-${handle}`, type: 'text', class: 'text-input', placeholder: text, required: isRequired });
+    input = createTag('sp-textfield', {
+      id: `info-field-${handle}`, class: 'text-input', placeholder: text, required: isRequired, quiet: true, size: 'xl',
+    });
   }
 
   if (type === 'textarea') {
-    input = createTag('textarea', { id: `info-field-${handle}`, class: 'textarea-input', placeholder: text, required: isRequired });
+    input = createTag('sp-textfield', {
+      id: `info-field-${handle}`, multiline: true, class: 'textarea-input', quiet: true, placeholder: text, required: isRequired,
+    });
   }
 
   if (maxCharNum) input.setAttribute('maxlength', maxCharNum);
@@ -111,13 +121,13 @@ export default function init(el) {
   generateToolTip(el);
 
   const rows = el.querySelectorAll(':scope > div');
-  rows.forEach((r, i) => {
+  rows.forEach(async (r, i) => {
     if (i === 1) {
-      decorateField(r, 'text');
+      await decorateField(r, 'text');
       addRepeater(r);
     }
     if (i === 2) {
-      decorateField(r, 'textarea');
+      await decorateField(r, 'textarea');
       addRepeater(r);
     }
     if (i === 3) decorateDateTimeFields(r);

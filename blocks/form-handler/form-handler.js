@@ -286,20 +286,26 @@ function prepopulateForm(el, inputMap) {
 
   const eventObj = JSON.parse(localStorage.getItem(eventId));
 
-  inputMap.forEach((input) => {
-    const element = el.querySelector(input.selector);
-    if (!element) return;
+  SUPPORTED_COMPONENTS.forEach((comp) => {
+    const mappedComponents = el.querySelectorAll(`.${comp}-component`);
+    if (!mappedComponents?.length) return;
 
-    if (element[input.accessPoint] !== undefined) {
-      element[input.accessPoint] = eventObj[input.key];
-    } else {
-      element.setAttirbute(input.accessPoint, eventObj[input.key]);
-    }
+    mappedComponents.forEach(async (component) => {
+      const { onResume } = await import(`./controllers/${comp}-component-controller.js`);
+      await onResume(component, eventObj, inputMap);
+    });
   });
 }
 
 export default async function init(el) {
-  const form = createTag('form');
+  const miloLibs = getLibs();
+  await Promise.all([
+    import(`${miloLibs}/deps/lit-all.min.js`),
+    import(`${miloLibs}/features/spectrum-web-components/dist/theme.js`),
+  ]);
+
+  const app = createTag('sp-theme', { color: 'light', scale: 'medium' });
+  const form = createTag('form', {}, '', { parent: app });
   const formDivs = el.querySelectorAll('.fragment');
 
   if (!formDivs.length) {
@@ -308,7 +314,7 @@ export default async function init(el) {
   }
 
   formDivs.forEach((formDiv) => {
-    formDiv.parentElement.replaceChild(form, formDiv);
+    formDiv.parentElement.replaceChild(app, formDiv);
     form.append(formDiv);
   });
 
