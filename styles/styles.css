@@ -31,3 +31,28 @@ fieldset {
   border: none;
   padding: 0;
 }
+
+/* CaaS cards override */
+main .consonant-u-themeDark .consonant-BtnInfobit,
+main .consonant-u-themeDark .consonant-CardsGrid .consonant-Card.one-half {
+  background-color: var(--color-black);
+}
+
+main .consonant-u-themeDark .consonant-Card:focus {
+  border: 1px solid var(--color-black);
+}
+
+main .consonant-u-themeDark .consonant-BtnInfobit:hover {
+  background-color: var(--color-white);
+  border-color: var(--color-white);
+}
+
+main .consonant-u-themeDark .consonant-CardsGrid .consonant-Card.one-half .consonant-Card-text,
+main .consonant-u-themeDark .consonant-DateIntervalInfobit, .consonant-u-themeDark .consonant-IconWithTextInfobit-text,
+main .consonant-u-themeDark .consonant-BtnInfobit:not(.consonant-u-themeDark .consonant-BtnInfobit--cta) span {
+  color: var(--color-white);
+}
+
+main .consonant-u-themeDark .consonant-BtnInfobit:hover:not(.consonant-u-themeDark .consonant-BtnInfobit--cta) span {
+  color: var(--color-black);
+}
