@@ -4,8 +4,8 @@ sitemaps:
     origin: https://www.adobe.com
     languages:
       default:
-        source: /events/create-now/query-index.json
-        destination: /events/create-now/sitemap.xml
+        source: /events/query-index.json
+        destination: /events/sitemap.xml
         hreflang: en
         alternate: /{path}
   
@@ -14,6 +14,6 @@ sitemaps:
     languages:
       default:
         source: /events/default/metadata.json?sheet=sitemap
-        destination: /events/create-now/sitemap.xml
+        destination: /events/default/sitemap.xml
         hreflang: en
         alternate: /{path}
